@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查",
+  "title": "系统中出现大量不可中断进程和僵尸进程如何排查",
+  "description": "前言：进程状态里的 “异常信号”",
+  "source": "@site/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查",
+  "permalink": "/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "深入理解linux软中断",
+    "permalink": "/docs/技术博客/CPU/深入理解linux软中断"
+  },
+  "next": {
+    "title": "调整CPU频率",
+    "permalink": "/docs/技术博客/CPU/调整CPU频率"
+  }
+}

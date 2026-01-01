@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/嵌入式/linux设备驱动开发详解/21.3　内核打印信息—printk（​）",
+  "title": "21.3　内核打印信息—printk（​）",
+  "description": "在Linux中，内核打印语句printk（）会将内核信息输出到内核信息缓冲区中，内核缓冲区是在kernel/printk.c中通过如下语句静态定义的：",
+  "source": "@site/docs/技术博客/嵌入式/linux设备驱动开发详解/21.3　内核打印信息—printk（​）.md",
+  "sourceDirName": "技术博客/嵌入式/linux设备驱动开发详解",
+  "slug": "/技术博客/嵌入式/linux设备驱动开发详解/21.3　内核打印信息—printk（​）",
+  "permalink": "/docs/技术博客/嵌入式/linux设备驱动开发详解/21.3　内核打印信息—printk（​）",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/嵌入式/linux设备驱动开发详解/21.3　内核打印信息—printk（​）.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "负载均衡流程图",
+    "permalink": "/docs/技术博客/CPU/负载均衡流程图"
+  },
+  "next": {
+    "title": "21.5　使用“proc”",
+    "permalink": "/docs/技术博客/嵌入式/linux设备驱动开发详解/21.5　使用“proc”"
+  }
+}

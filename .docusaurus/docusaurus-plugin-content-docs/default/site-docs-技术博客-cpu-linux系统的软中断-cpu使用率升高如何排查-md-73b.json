@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/linux系统的软中断CPU使用率升高如何排查",
+  "title": "Linux 网络软中断过过多导致 CPU 使用率升高",
+  "description": "在 Linux 系统软中断 CPU 使用率（% si）升高的场景中，网络收发类软中断（尤其是NETRX，即网络接收软中断）是生产环境最常见的 “元凶”。无论是高并发 API 服务、分布式数据库还是 CDN 节点，大量网络数据包的接收与处理都会触发NETRX软中断，若处理不当，轻则导致 CPU 过载、响应延迟升高，重则引发数据包丢失、服务不可用。本文将聚焦网络软中断问题，教你用sar（系统活动报告）、tcpdump（网络抓包）等工具精准定位问题，并提供可落地的优化方案。",
+  "source": "@site/docs/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查",
+  "permalink": "/docs/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "linux查看硬件拓扑",
+    "permalink": "/docs/技术博客/CPU/linux查看硬件拓扑"
+  },
+  "next": {
+    "title": "linux网络软中断导致CPU使用率升高如何排查",
+    "permalink": "/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查"
+  }
+}

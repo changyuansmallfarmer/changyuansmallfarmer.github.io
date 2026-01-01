@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查",
+  "title": "linux网络软中断导致CPU使用率升高如何排查",
+  "description": "一、实战：网络类软中断 CPU 升高的排查流程",
+  "source": "@site/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查",
+  "permalink": "/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Linux 网络软中断过过多导致 CPU 使用率升高",
+    "permalink": "/docs/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查"
+  },
+  "next": {
+    "title": "linux获取cpu温度",
+    "permalink": "/docs/技术博客/CPU/linux获取cpu温度"
+  }
+}

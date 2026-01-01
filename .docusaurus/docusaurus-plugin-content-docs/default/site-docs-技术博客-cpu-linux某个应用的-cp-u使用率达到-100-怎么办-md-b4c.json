@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/linux某个应用的CPU使用率达到100怎么办",
+  "title": "深入解析 Linux CPU 使用率：从类型识别到问题排查与解决",
+  "description": "在 Linux 系统运维中，当应用 CPU 使用率飙升至 100% 时，很多人会陷入 “只知高占用，不知哪里出问题” 的困境。其实，CPU 使用率细分为用户（% user）、Nice（% nice）、系统（% system）、等待 I/O（% iowait）、中断（% irq）和软中断（% softirq）多种类型，不同类型高占用对应着截然不同的问题根源。本文将带你从识别 CPU 使用率类型入手，结合工具排查，精准定位并解决 CPU 高占用难题。",
+  "source": "@site/docs/技术博客/CPU/linux某个应用的CPU使用率达到100怎么办.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/linux某个应用的CPU使用率达到100怎么办",
+  "permalink": "/docs/技术博客/CPU/linux某个应用的CPU使用率达到100怎么办",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/linux某个应用的CPU使用率达到100怎么办.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "linux如何理解“平均负载”",
+    "permalink": "/docs/技术博客/CPU/linux如何理解“平均负载”"
+  },
+  "next": {
+    "title": "linux查看硬件拓扑",
+    "permalink": "/docs/技术博客/CPU/linux查看硬件拓扑"
+  }
+}

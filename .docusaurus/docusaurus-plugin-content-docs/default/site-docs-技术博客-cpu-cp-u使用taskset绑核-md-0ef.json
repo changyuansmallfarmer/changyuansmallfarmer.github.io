@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/CPU使用taskset绑核",
+  "title": "CPU使用taskset绑核",
+  "description": "8b3aa675-79a0-4f97-a9d8-e9c2c02e0281",
+  "source": "@site/docs/技术博客/CPU/CPU使用taskset绑核.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/CPU使用taskset绑核",
+  "permalink": "/docs/技术博客/CPU/CPU使用taskset绑核",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/CPU使用taskset绑核.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "AI核心技能",
+    "permalink": "/docs/技术博客/AI相关/AI核心技能"
+  },
+  "next": {
+    "title": "CPU调度域",
+    "permalink": "/docs/技术博客/CPU/CPU调度域"
+  }
+}

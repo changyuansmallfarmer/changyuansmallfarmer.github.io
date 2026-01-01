@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/调整CPU频率",
+  "title": "调整CPU频率",
+  "description": "cpufreq是一个动态调整cpu频率的模块，系统启动时生成一个文件夹/sys/devices/system/cpu/cpu0/cpufreq/，里面有几个文件，",
+  "source": "@site/docs/技术博客/CPU/调整CPU频率.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/调整CPU频率",
+  "permalink": "/docs/技术博客/CPU/调整CPU频率",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/调整CPU频率.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "系统中出现大量不可中断进程和僵尸进程如何排查",
+    "permalink": "/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查"
+  },
+  "next": {
+    "title": "负载均衡流程图",
+    "permalink": "/docs/技术博客/CPU/负载均衡流程图"
+  }
+}

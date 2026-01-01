@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/与调度相关的调试节点",
+  "title": "与调度相关的调试节点",
+  "description": "和调度相关的调试节点在/proc/sys/kernel目录下，",
+  "source": "@site/docs/技术博客/CPU/与调度相关的调试节点.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/与调度相关的调试节点",
+  "permalink": "/docs/技术博客/CPU/与调度相关的调试节点",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/与调度相关的调试节点.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "一文读懂 Linux 软中断：从原理到实战查看与排查",
+    "permalink": "/docs/技术博客/CPU/一文读懂 Linux 软中断"
+  },
+  "next": {
+    "title": "深入理解CPU 上下文切换",
+    "permalink": "/docs/技术博客/CPU/深入理解CPU 上下文切换"
+  }
+}

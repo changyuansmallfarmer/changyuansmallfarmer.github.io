@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/Untitled",
+  "title": "Untitled",
+  "description": "",
+  "source": "@site/docs/技术博客/CPU/Untitled.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/Untitled",
+  "permalink": "/docs/技术博客/CPU/Untitled",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/Untitled.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Linux CPU 使用率高却找不到高占用应用问题排查指南",
+    "permalink": "/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南"
+  },
+  "next": {
+    "title": "linux cpu性能优化的几个思路",
+    "permalink": "/docs/技术博客/CPU/linux cpu性能优化的几个思路"
+  }
+}

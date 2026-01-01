@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/深入理解linux cpu负载",
+  "title": "**一、经常了解linux系统负载的命令**",
+  "description": "当系统变得卡顿的时候我们会优先使用top命令，来了解系统的负载情况",
+  "source": "@site/docs/技术博客/CPU/深入理解linux cpu负载.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/深入理解linux cpu负载",
+  "permalink": "/docs/技术博客/CPU/深入理解linux cpu负载",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/深入理解linux cpu负载.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "深入理解CPU 上下文切换",
+    "permalink": "/docs/技术博客/CPU/深入理解CPU 上下文切换"
+  },
+  "next": {
+    "title": "深入理解linux软中断",
+    "permalink": "/docs/技术博客/CPU/深入理解linux软中断"
+  }
+}

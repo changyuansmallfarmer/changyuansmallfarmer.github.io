@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/负载均衡流程图",
+  "title": "负载均衡流程图",
+  "description": "image-20250915231704530",
+  "source": "@site/docs/技术博客/CPU/负载均衡流程图.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/负载均衡流程图",
+  "permalink": "/docs/技术博客/CPU/负载均衡流程图",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/负载均衡流程图.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "调整CPU频率",
+    "permalink": "/docs/技术博客/CPU/调整CPU频率"
+  },
+  "next": {
+    "title": "网络问题",
+    "permalink": "/docs/技术博客/网络/网络问题"
+  }
+}

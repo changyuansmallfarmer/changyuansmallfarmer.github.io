@@ -1,0 +1,195 @@
+.footer {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: white;
+  padding: 0;
+  margin-top: 4rem;
+}
+
+.footerMain {
+  padding: 4rem 0 2rem;
+}
+
+.footerTitle {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.footerTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.authorAvatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667eea;
+}
+
+.authorContent {
+  flex: 1;
+}
+
+.authorName {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.authorBio {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667eea;
+}
+
+.contactLabel {
+  font-weight: 600;
+  color: white;
+  min-width: 60px;
+}
+
+.contactValue {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contactValue:hover {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 0.75rem;
+}
+
+.footerLinks a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+.footerLinks a:hover {
+  color: white;
+  transform: translateX(4px);
+  text-decoration: none;
+}
+
+.footerDesc {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.footerLogo {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footerBottom {
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 768px) {
+  .footerMain {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .footerTitle {
+    font-size: 1.1rem;
+  }
+
+  .authorInfo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .authorAvatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .authorBio {
+    font-size: 0.85rem;
+  }
+
+  .contactItem {
+    justify-content: center;
+  }
+
+  .footerLinks li {
+    text-align: center;
+  }
+}
+

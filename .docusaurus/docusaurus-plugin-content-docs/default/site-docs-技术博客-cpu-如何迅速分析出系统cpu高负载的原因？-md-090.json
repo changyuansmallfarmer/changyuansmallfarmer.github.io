@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/如何迅速分析出系统CPU高负载的原因？",
+  "title": "如何迅速分析出系统CPU高负载的原因？",
+  "description": "在 Linux 系统中，CPU 性能瓶颈是影响服务稳定性与响应速度的常见问题。本文基于 CPU 性能指标的关联性与工具特性，总结一套 “又快又准” 的瓶颈定位流程，帮助运维与开发人员在复杂业务场景中快速定位 CPU 问题根源。",
+  "source": "@site/docs/技术博客/CPU/如何迅速分析出系统CPU高负载的原因？.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/如何迅速分析出系统CPU高负载的原因？",
+  "permalink": "/docs/技术博客/CPU/如何迅速分析出系统CPU高负载的原因？",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/如何迅速分析出系统CPU高负载的原因？.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "与调度相关的调试节点",
+    "permalink": "/docs/技术博客/CPU/与调度相关的调试节点"
+  },
+  "next": {
+    "title": "深入理解CPU 上下文切换",
+    "permalink": "/docs/技术博客/CPU/深入理解CPU 上下文切换"
+  }
+}

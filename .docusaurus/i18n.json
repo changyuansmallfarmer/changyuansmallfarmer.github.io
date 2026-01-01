@@ -1,11 +1,10 @@
 {
   "defaultLocale": "zh-Hans",
   "locales": [
-    "zh-Hans",
-    "en"
+    "zh-Hans"
   ],
   "path": "i18n",
-  "currentLocale": "en",
+  "currentLocale": "zh-Hans",
   "localeConfigs": {
     "zh-Hans": {
       "label": "简体中文",
@@ -14,18 +13,8 @@
       "calendar": "gregory",
       "path": "zh-Hans",
       "translate": true,
-      "url": "https://your-docusaurus-site.example.com",
+      "url": "https://changyuansmallfarmer.github.io",
       "baseUrl": "/"
-    },
-    "en": {
-      "label": "English",
-      "direction": "ltr",
-      "htmlLang": "en",
-      "calendar": "gregory",
-      "path": "en",
-      "translate": true,
-      "url": "https://your-docusaurus-site.example.com",
-      "baseUrl": "/en/"
     }
   }
 }

@@ -1,23 +1,19 @@
 {
   "title": {
-    "message": "个人知识库",
+    "message": "蒲城小农的文字世界",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Knowledge Wiki Logo",
+    "message": "Wiki Logo",
     "description": "The alt text of navbar logo"
   },
-  "item.label.theme.navbar.docs": {
-    "message": "文档",
-    "description": "Navbar item with label theme.navbar.docs"
+  "item.label.知识库": {
+    "message": "知识库",
+    "description": "Navbar item with label 知识库"
   },
-  "item.label.theme.navbar.blog": {
+  "item.label.博客": {
     "message": "博客",
-    "description": "Navbar item with label theme.navbar.blog"
-  },
-  "item.label.theme.navbar.email": {
-    "message": "📧 邮箱",
-    "description": "Navbar item with label theme.navbar.email"
+    "description": "Navbar item with label 博客"
   },
   "item.label.GitHub": {
     "message": "GitHub",

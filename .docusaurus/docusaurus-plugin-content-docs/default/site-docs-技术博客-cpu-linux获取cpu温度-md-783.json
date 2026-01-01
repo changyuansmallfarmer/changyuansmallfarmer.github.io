@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/linux获取cpu温度",
+  "title": "linux获取cpu温度",
+  "description": "第一种方式：直接获取",
+  "source": "@site/docs/技术博客/CPU/linux获取cpu温度.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/linux获取cpu温度",
+  "permalink": "/docs/技术博客/CPU/linux获取cpu温度",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/linux获取cpu温度.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "linux网络软中断导致CPU使用率升高如何排查",
+    "permalink": "/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查"
+  },
+  "next": {
+    "title": "一文读懂 Linux 软中断：从原理到实战查看与排查",
+    "permalink": "/docs/技术博客/CPU/一文读懂 Linux 软中断"
+  }
+}

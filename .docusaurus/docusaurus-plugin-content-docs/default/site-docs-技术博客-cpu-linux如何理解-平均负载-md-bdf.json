@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/linux如何理解“平均负载”",
+  "title": "linux如何理解“平均负载”",
+  "description": "一、问题引入：为什么系统卡了，CPU 却不高？",
+  "source": "@site/docs/技术博客/CPU/linux如何理解“平均负载”.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/linux如何理解“平均负载”",
+  "permalink": "/docs/技术博客/CPU/linux如何理解“平均负载”",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/linux如何理解“平均负载”.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Linux 内核设备树与 cpuinfo：CPU 信息识别机制深度解析",
+    "permalink": "/docs/技术博客/CPU/linux内核设备树下cpuinfo如何识别cpu信息"
+  },
+  "next": {
+    "title": "深入解析 Linux CPU 使用率：从类型识别到问题排查与解决",
+    "permalink": "/docs/技术博客/CPU/linux某个应用的CPU使用率达到100怎么办"
+  }
+}

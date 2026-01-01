@@ -1,82 +1,156 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/en/docs",
+      "path": "/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/en/docs",
+          "path": "/docs",
           "mainDocId": "intro",
           "docs": [
             {
-              "id": "contact",
-              "path": "/en/docs/contact",
-              "sidebar": "tutorialSidebar"
-            },
-            {
               "id": "intro",
-              "path": "/en/docs/intro",
+              "path": "/docs/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "mermaid-examples",
-              "path": "/en/docs/mermaid-examples",
-              "sidebar": "tutorialSidebar"
-            },
-            {
-              "id": "programming",
-              "path": "/en/docs/programming",
-              "sidebar": "tutorialSidebar"
-            },
-            {
-              "id": "system-design",
-              "path": "/en/docs/system-design",
+              "path": "/docs/mermaid-examples",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/congratulations",
-              "path": "/en/docs/tutorial-basics/congratulations"
+              "path": "/docs/tutorial-basics/congratulations",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/create-a-blog-post",
-              "path": "/en/docs/tutorial-basics/create-a-blog-post",
+              "path": "/docs/tutorial-basics/create-a-blog-post",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/create-a-document",
-              "path": "/en/docs/tutorial-basics/create-a-document",
+              "path": "/docs/tutorial-basics/create-a-document",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/create-a-page",
-              "path": "/en/docs/tutorial-basics/create-a-page"
+              "path": "/docs/tutorial-basics/create-a-page",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/deploy-your-site",
-              "path": "/en/docs/tutorial-basics/deploy-your-site",
+              "path": "/docs/tutorial-basics/deploy-your-site",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-basics/markdown-features",
-              "path": "/en/docs/tutorial-basics/markdown-features",
+              "path": "/docs/tutorial-basics/markdown-features",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-extras/manage-docs-versions",
-              "path": "/en/docs/tutorial-extras/manage-docs-versions"
+              "path": "/docs/tutorial-extras/manage-docs-versions",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorial-extras/translate-your-site",
-              "path": "/en/docs/tutorial-extras/translate-your-site"
+              "path": "/docs/tutorial-extras/translate-your-site",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人博客/docusaurus2.4",
+              "path": "/docs/个人博客/docusaurus2.4",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人博客/docusaurus3.7",
+              "path": "/docs/个人博客/docusaurus3.7",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人生活/2025国家生育政策8大补贴汇总",
+              "path": "/docs/个人生活/2025国家生育政策8大补贴汇总",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人生活/孕早期",
+              "path": "/docs/个人生活/孕早期",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人生活/怀孕注意",
+              "path": "/docs/个人生活/怀孕注意",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人生活/自建房",
+              "path": "/docs/个人生活/自建房",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "个人生活/顺产",
+              "path": "/docs/个人生活/顺产",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "人生哲学/人生的底层逻辑",
+              "path": "/docs/人生哲学/人生的底层逻辑",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/AI相关/AI核心技能",
+              "path": "/docs/技术博客/AI相关/AI核心技能",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/网络/网络问题",
+              "path": "/docs/技术博客/网络/网络问题",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/调试/linux信号机制",
+              "path": "/docs/技术博客/调试/linux信号机制",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/调试/Linux内核追踪神器：perf实现原理剖析",
+              "path": "/docs/技术博客/调试/Linux内核追踪神器：perf实现原理剖析",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/调试/Linux性能分析神器ftrace：从原理到实战",
+              "path": "/docs/技术博客/调试/Linux性能分析神器ftrace：从原理到实战",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/调试/Linux性能工具(三)ftrace框架",
+              "path": "/docs/技术博客/调试/Linux性能工具(三)ftrace框架",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "技术博客/调试/信号机制学习记录",
+              "path": "/docs/技术博客/调试/信号机制学习记录",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/tutorial---basics",
+              "path": "/docs/category/tutorial---basics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/tutorial---extras",
+              "path": "/docs/category/tutorial---extras",
+              "sidebar": "tutorialSidebar"
             }
           ],
           "draftIds": [],
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/en/docs/intro",
+                "path": "/docs/intro",
                 "label": "intro"
               }
             }

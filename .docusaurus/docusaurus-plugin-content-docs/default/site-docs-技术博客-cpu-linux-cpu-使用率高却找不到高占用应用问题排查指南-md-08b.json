@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南",
+  "title": "Linux CPU 使用率高却找不到高占用应用问题排查指南",
+  "description": "在 Linux 系统中，我们常会遇到一种 “诡异” 的情况：通过 top、ps 等常规工具查看时，CPU 使用率明明持续居高不下（甚至飙至 100%），但始终找不到对应的高 CPU 占用应用 —— 刷新进程列表时，所有进程的 % CPU 都处于正常范围，仿佛高 CPU 消耗 “凭空消失” 了。",
+  "source": "@site/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南",
+  "permalink": "/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "CPU调度域",
+    "permalink": "/docs/技术博客/CPU/CPU调度域"
+  },
+  "next": {
+    "title": "Untitled",
+    "permalink": "/docs/技术博客/CPU/Untitled"
+  }
+}

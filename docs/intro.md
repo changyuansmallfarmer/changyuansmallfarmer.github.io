@@ -1,47 +1,19 @@
----
-sidebar_position: 1
----
+蒲城小农的博客
 
-# Tutorial Intro
+家庭的底层逻辑是经济，不是感情 
 
-Let's discover **Docusaurus in less than 5 minutes**.
+职场的底层逻辑是价值，不是努力 
 
-## Getting Started
+教育的底层逻辑是培养，不是分数 
 
-Get started by **creating a new site**.
+健康的底层逻辑是自律，不是医疗 
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+创业的底层逻辑是市场，不是产品 
 
-### What you'll need
+成事的底层逻辑是实践，不是学习 
 
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+赚钱的底层逻辑是需求，不是辛苦 
 
-## Generate a new site
+流量的底层逻辑是人性，不是自嗨 
 
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+投资的底层逻辑是风控，不是回报

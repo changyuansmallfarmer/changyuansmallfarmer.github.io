@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/深入理解CPU 上下文切换",
+  "title": "深入理解CPU 上下文切换",
+  "description": "一、为什么要在 ARM64 架构下拆分上下文切换场景？",
+  "source": "@site/docs/技术博客/CPU/深入理解CPU 上下文切换.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/深入理解CPU 上下文切换",
+  "permalink": "/docs/技术博客/CPU/深入理解CPU 上下文切换",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/深入理解CPU 上下文切换.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "与调度相关的调试节点",
+    "permalink": "/docs/技术博客/CPU/与调度相关的调试节点"
+  },
+  "next": {
+    "title": "**一、经常了解linux系统负载的命令**",
+    "permalink": "/docs/技术博客/CPU/深入理解linux cpu负载"
+  }
+}

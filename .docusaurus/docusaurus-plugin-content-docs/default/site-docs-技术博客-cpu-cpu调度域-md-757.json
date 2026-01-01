@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/CPU调度域",
+  "title": "CPU调度域",
+  "description": "| CPU域的分类                             | linux内核分类    | 说明                                                         |",
+  "source": "@site/docs/技术博客/CPU/CPU调度域.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/CPU调度域",
+  "permalink": "/docs/技术博客/CPU/CPU调度域",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/CPU调度域.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "CPU使用taskset绑核",
+    "permalink": "/docs/技术博客/CPU/CPU使用taskset绑核"
+  },
+  "next": {
+    "title": "Linux CPU 使用率高却找不到高占用应用问题排查指南",
+    "permalink": "/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南"
+  }
+}

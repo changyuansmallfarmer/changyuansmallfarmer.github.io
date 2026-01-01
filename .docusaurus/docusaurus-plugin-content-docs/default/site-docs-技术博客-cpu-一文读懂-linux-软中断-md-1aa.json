@@ -1,0 +1,24 @@
+{
+  "id": "技术博客/CPU/一文读懂 Linux 软中断",
+  "title": "一文读懂 Linux 软中断：从原理到实战查看与排查",
+  "description": "在 Linux 系统中，中断是内核与硬件设备交互的核心机制，而软中断作为中断处理的 “下半部分”，承担着异步处理高频、耗时任务的关键角色。很多运维人员在遇到 CPU 使用率高（尤其是 % softirq 占比高）时，常会因不理解软中断的工作原理而无从下手。本文将从中断处理的 “上下半部” 模型切入，带你彻底搞懂软中断的本质、类型、查看方式，以及相关问题的排查思路。",
+  "source": "@site/docs/技术博客/CPU/一文读懂 Linux 软中断.md",
+  "sourceDirName": "技术博客/CPU",
+  "slug": "/技术博客/CPU/一文读懂 Linux 软中断",
+  "permalink": "/docs/技术博客/CPU/一文读懂 Linux 软中断",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io/docs/技术博客/CPU/一文读懂 Linux 软中断.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "linux获取cpu温度",
+    "permalink": "/docs/技术博客/CPU/linux获取cpu温度"
+  },
+  "next": {
+    "title": "与调度相关的调试节点",
+    "permalink": "/docs/技术博客/CPU/与调度相关的调试节点"
+  }
+}

@@ -4,8 +4,8 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "个人知识库",
-  "tagline": "知识积累与分享",
+  "title": "蒲城小农的文字世界",
+  "tagline": "知识积累和日常分享",
   "favicon": "img/favicon.ico",
   "future": {
     "v4": {
@@ -28,16 +28,16 @@ export default {
     },
     "experimental_router": "browser"
   },
-  "url": "https://your-docusaurus-site.example.com",
-  "baseUrl": "/en/",
-  "organizationName": "facebook",
-  "projectName": "docusaurus",
+  "url": "https://changyuansmallfarmer.github.io",
+  "baseUrl": "/",
+  "organizationName": "changyuansmallfarmer",
+  "projectName": "changyuansmallfarmer.github.io",
+  "deploymentBranch": "gh-pages",
   "onBrokenLinks": "throw",
   "i18n": {
     "defaultLocale": "zh-Hans",
     "locales": [
-      "zh-Hans",
-      "en"
+      "zh-Hans"
     ],
     "path": "i18n",
     "localeConfigs": {}
@@ -47,8 +47,8 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "./sidebars.js",
-          "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          "sidebarPath": "./sidebars.ts",
+          "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io"
         },
         "blog": {
           "showReadingTime": true,
@@ -59,7 +59,7 @@ export default {
             ],
             "xslt": true
           },
-          "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          "editUrl": "https://github.com/changyuansmallfarmer/changyuansmallfarmer.github.io",
           "onInlineTags": "warn",
           "onInlineAuthors": "warn",
           "onUntruncatedBlogPosts": "warn"
@@ -70,27 +70,12 @@ export default {
       }
     ]
   ],
-  "themes": [
+  "plugins": [
     [
-      "@docusaurus/theme-mermaid",
-      {}
-    ],
-    [
-      "@easyops-cn/docusaurus-search-local",
+      "image-zoom",
       {
-        "hashed": true,
-        "language": [
-          "en",
-          "zh"
-        ],
-        "highlightSearchTermsOnTargetPage": true,
-        "explicitSearchResultPath": true,
-        "indexDocs": true,
-        "indexBlog": true,
-        "indexPages": false,
-        "docsRouteBasePath": "/docs",
-        "searchResultLimits": 8,
-        "searchResultContextMaxLength": 50
+        "zoomContainerClassName": "markdown",
+        "selector": "img:not([data-nogem])"
       }
     ]
   ],
@@ -119,9 +104,9 @@ export default {
       "disableSwitch": false
     },
     "navbar": {
-      "title": "Personal Knowledge Wiki",
+      "title": "蒲城小农的文字世界",
       "logo": {
-        "alt": "Knowledge Wiki Logo",
+        "alt": "Wiki Logo",
         "src": "img/logo.svg"
       },
       "items": [
@@ -129,85 +114,73 @@ export default {
           "type": "docSidebar",
           "sidebarId": "tutorialSidebar",
           "position": "left",
-          "label": "Docs"
+          "label": "知识库"
         },
         {
           "to": "/blog",
-          "label": "Blog",
+          "label": "博客",
           "position": "left"
         },
         {
-          "type": "localeDropdown",
-          "position": "right",
-          "dropdownItemsBefore": [],
-          "dropdownItemsAfter": []
-        },
-        {
-          "href": "mailto:contact@knowledge-wiki.com",
-          "label": "📧 Email",
-          "position": "right"
-        },
-        {
-          "href": "https://github.com/shaozongfan/shaozongfan.github.io",
+          "href": "https://github.com/changyuansmallfarmer",
           "label": "GitHub",
           "position": "right"
         }
       ],
       "hideOnScroll": false
     },
+    "algolia": {
+      "appId": "YOUR_APP_ID",
+      "apiKey": "YOUR_API_KEY",
+      "indexName": "YOUR_INDEX_NAME",
+      "contextualSearch": true,
+      "searchParameters": {},
+      "searchPagePath": "search"
+    },
     "footer": {
       "style": "dark",
       "links": [
         {
-          "title": "Docs",
+          "title": "文档",
           "items": [
             {
-              "label": "Programming",
-              "to": "/docs/programming"
-            },
-            {
-              "label": "System Design",
-              "to": "/docs/system-design"
-            },
-            {
-              "label": "Mermaid Charts",
-              "to": "/docs/mermaid-examples"
+              "label": "教程",
+              "to": "/docs/intro"
             }
           ]
         },
         {
-          "title": "Contact",
+          "title": "社区",
           "items": [
             {
-              "label": "📧 Email",
-              "href": "mailto:contact@knowledge-wiki.com"
+              "label": "Stack Overflow",
+              "href": "https://stackoverflow.com/questions/tagged/docusaurus"
             },
             {
-              "label": "💬 WeChat",
-              "href": "#",
-              "target": "_self"
+              "label": "Discord",
+              "href": "https://discordapp.com/invite/docusaurus"
             },
             {
-              "label": "🐙 GitHub",
-              "href": "https://github.com/shaozongfan/shaozongfan.github.io"
+              "label": "X",
+              "href": "https://x.com/docusaurus"
             }
           ]
         },
         {
-          "title": "More",
+          "title": "更多",
           "items": [
             {
-              "label": "Blog",
+              "label": "博客",
               "to": "/blog"
             },
             {
-              "label": "About Us",
-              "to": "/docs/intro"
+              "label": "GitHub",
+              "href": "https://github.com/facebook/docusaurus"
             }
           ]
         }
       ],
-      "copyright": "Copyright © 2025 Personal Knowledge Wiki. Built with Docusaurus."
+      "copyright": "Copyright © 2025 My Project, Inc. Built with Docusaurus."
     },
     "prism": {
       "theme": {
@@ -429,13 +402,6 @@ export default {
     "tableOfContents": {
       "minHeadingLevel": 2,
       "maxHeadingLevel": 3
-    },
-    "mermaid": {
-      "theme": {
-        "dark": "dark",
-        "light": "default"
-      },
-      "options": {}
     }
   },
   "baseUrlIssueBanner": true,
@@ -445,7 +411,7 @@ export default {
     "static"
   ],
   "customFields": {},
-  "plugins": [],
+  "themes": [],
   "scripts": [],
   "headTags": [],
   "stylesheets": [],
