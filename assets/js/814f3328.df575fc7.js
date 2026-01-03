@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkdocusaurus_website=globalThis.webpackChunkdocusaurus_website||[]).push([[7472],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\u6b22\u8fce","permalink":"/blog/welcome","unlisted":false,"date":"2023-11-13T00:00:00.000Z"}]}')}}]);
