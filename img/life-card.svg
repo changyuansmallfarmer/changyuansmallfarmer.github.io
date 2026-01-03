@@ -1,0 +1,6 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#B4B2C1"/>
+  <circle cx="200" cy="130" r="50" fill="#6F69BF" opacity="0.3"/>
+  <text x="200" y="160" font-size="24" text-anchor="middle" fill="#2B2853" font-family="Arial, sans-serif">个人生活</text>
+  <text x="200" y="190" font-size="14" text-anchor="middle" fill="#6B6885" font-family="Arial, sans-serif">Life</text>
+</svg>

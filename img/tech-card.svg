@@ -1,0 +1,6 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#D9D8E0"/>
+  <rect x="120" y="100" width="160" height="120" rx="10" fill="#7B75C5" opacity="0.3"/>
+  <text x="200" y="150" font-size="24" text-anchor="middle" fill="#2B2853" font-family="Arial, sans-serif">技术博客</text>
+  <text x="200" y="180" font-size="14" text-anchor="middle" fill="#6B6885" font-family="Arial, sans-serif">Tech Blog</text>
+</svg>

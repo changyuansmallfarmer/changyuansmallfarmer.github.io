@@ -1,0 +1,6 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#E8E7ED"/>
+  <circle cx="200" cy="150" r="60" fill="#938CD2" opacity="0.3"/>
+  <text x="200" y="150" font-size="24" text-anchor="middle" fill="#2B2853" font-family="Arial, sans-serif">个人博客</text>
+  <text x="200" y="180" font-size="14" text-anchor="middle" fill="#6B6885" font-family="Arial, sans-serif">Blog</text>
+</svg>
