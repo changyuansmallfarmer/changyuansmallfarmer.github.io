@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">系统中出现大量不可中断进程和僵尸进程如何排查 | 蒲城小农的文字世界</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="zh-CN"><meta data-rh="true" name="docsearch:language" content="zh-CN"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="系统中出现大量不可中断进程和僵尸进程如何排查 | 蒲城小农的文字世界"><meta data-rh="true" name="description" content="前言：进程状态里的 “异常信号”"><meta data-rh="true" property="og:description" content="前言：进程状态里的 “异常信号”"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查"><link data-rh="true" rel="alternate" href="https://changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"技术博客","item":"https://changyuansmallfarmer.github.io/docs/技术博客/"},{"@type":"ListItem","position":2,"name":"系统中出现大量不可中断进程和僵尸进程如何排查","item":"https://changyuansmallfarmer.github.io/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="蒲城小农的文字世界 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="蒲城小农的文字世界 Atom Feed"><link rel="stylesheet" href="/assets/css/styles.d28cf44b.css">
+<script src="/assets/js/runtime~main.44f27f34.js" defer="defer"></script>
+<script src="/assets/js/main.31a6b5d6.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_rPjb" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">蒲城小农的文字世界</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/intro">个人博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/技术博客">技术博客</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbarSearchContainer_AD9z"><div class="navbar__search searchBarContainer_KS2A" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_tmsu" value=""><div class="loadingRing_p9nh searchBarLoadingRing_WAMN"><div></div><div></div><div></div><div></div></div></div></div><a href="https://github.com/changyuansmallfarmer" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link header-github-link" aria-label="GitHub 仓库"></a><div class="toggle_kkmW colorModeToggle_zsNT"><button class="clean-btn toggleButton_TjTN toggleButtonDisabled_V5P9" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_kE6a lightToggleIcon_ruGK"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_kE6a darkToggleIcon_bx73"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_kE6a systemToggleIcon_R5zt"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_QIaM"><div class="docsWrapper_djjy"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_Fh6Z" type="button"></button><div class="docRoot_HW0i"><aside class="theme-doc-sidebar-container docSidebarContainer_XB98"><div class="sidebarViewport_pMdH"><div class="sidebar_BR52"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_xeN1"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro"><span title="底层逻辑" class="linkLabel_vtlO">底层逻辑</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist" href="/docs/个人博客/"><span title="个人博客" class="categoryLinkLabel_iPtR">个人博客</span></a><button aria-label="展开侧边栏分类 &#x27;个人博客&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist" href="/docs/个人生活/"><span title="个人生活" class="categoryLinkLabel_iPtR">个人生活</span></a><button aria-label="展开侧边栏分类 &#x27;个人生活&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist menu__link--active" href="/docs/技术博客/"><span title="技术博客" class="categoryLinkLabel_iPtR">技术博客</span></a><button aria-label="折叠侧边栏分类 &#x27;技术博客&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/技术博客/AI相关/AI核心技能"><span title="AI相关" class="categoryLinkLabel_iPtR">AI相关</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/docs/技术博客/CPU/CPU使用taskset绑核"><span title="CPU" class="categoryLinkLabel_iPtR">CPU</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/CPU使用taskset绑核"><span title="CPU使用taskset绑核" class="linkLabel_vtlO">CPU使用taskset绑核</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/CPU调度域"><span title="CPU调度域" class="linkLabel_vtlO">CPU调度域</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/Linux CPU 使用率高却找不到高占用应用问题排查指南"><span title="Linux CPU 使用率高却找不到高占用应用问题排查指南" class="linkLabel_vtlO">Linux CPU 使用率高却找不到高占用应用问题排查指南</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux cpu性能优化的几个思路"><span title="linux cpu性能优化的几个思路" class="linkLabel_vtlO">linux cpu性能优化的几个思路</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux内核设备树下cpuinfo如何识别cpu信息"><span title="Linux 内核设备树与 cpuinfo：CPU 信息识别机制深度解析" class="linkLabel_vtlO">Linux 内核设备树与 cpuinfo：CPU 信息识别机制深度解析</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux如何理解“平均负载”"><span title="linux如何理解“平均负载”" class="linkLabel_vtlO">linux如何理解“平均负载”</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux某个应用的CPU使用率满了怎么办"><span title="深入解析 Linux CPU 使用率：从类型识别到问题排查与解决" class="linkLabel_vtlO">深入解析 Linux CPU 使用率：从类型识别到问题排查与解决</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux查看硬件拓扑"><span title="linux查看硬件拓扑" class="linkLabel_vtlO">linux查看硬件拓扑</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux系统中出现大量不可中断进程和僵尸进程如何排查"><span title="Linux 系统出现大量不可中断进程与僵尸进程问题排查？" class="linkLabel_vtlO">Linux 系统出现大量不可中断进程与僵尸进程问题排查？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux系统的软中断CPU使用率升高如何排查"><span title="Linux 网络软中断过过多导致 CPU 使用率升高" class="linkLabel_vtlO">Linux 网络软中断过过多导致 CPU 使用率升高</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux网络软中断导致CPU使用率升高如何排查"><span title="linux网络软中断导致CPU使用率升高如何排查" class="linkLabel_vtlO">linux网络软中断导致CPU使用率升高如何排查</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/linux获取cpu温度"><span title="linux获取cpu温度" class="linkLabel_vtlO">linux获取cpu温度</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/一文读懂 Linux 软中断"><span title="一文读懂 Linux 软中断：从原理到实战查看与排查" class="linkLabel_vtlO">一文读懂 Linux 软中断：从原理到实战查看与排查</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/与调度相关的调试节点"><span title="与调度相关的调试节点" class="linkLabel_vtlO">与调度相关的调试节点</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/如何迅速分析出系统CPU高负载的原因"><span title="如何迅速分析出系统CPU高负载的原因" class="linkLabel_vtlO">如何迅速分析出系统CPU高负载的原因</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/深入理解CPU 上下文切换"><span title="深入理解CPU 上下文切换" class="linkLabel_vtlO">深入理解CPU 上下文切换</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/深入理解linux cpu负载"><span title="**一、经常了解linux系统负载的命令**" class="linkLabel_vtlO">**一、经常了解linux系统负载的命令**</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/深入理解linux软中断"><span title="深入理解linux软中断" class="linkLabel_vtlO">深入理解linux软中断</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/技术博客/CPU/系统中出现大量不可中断进程和僵尸进程如何排查"><span title="系统中出现大量不可中断进程和僵尸进程如何排查" class="linkLabel_vtlO">系统中出现大量不可中断进程和僵尸进程如何排查</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/调整CPU频率"><span title="调整CPU频率" class="linkLabel_vtlO">调整CPU频率</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/技术博客/CPU/负载均衡流程图"><span title="负载均衡流程图" class="linkLabel_vtlO">负载均衡流程图</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_bhuW menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/技术博客/android/android 开机logo修改"><span title="android" class="categoryLinkLabel_iPtR">android</span></a></div></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_ZhoE"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_dvZG"><div class="docItemContainer_shg0"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_vkdb" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_TAkf"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/技术博客/"><span>技术博客</span></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">CPU</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">系统中出现大量不可中断进程和僵尸进程如何排查</span></li></ul></nav><div class="tocCollapsible_R51T theme-doc-toc-mobile tocMobile_uqzo"><button type="button" class="clean-btn tocCollapsibleButton_AyNr">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>系统中出现大量不可中断进程和僵尸进程如何排查</h1></header><h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="前言进程状态里的-异常信号">前言：进程状态里的 “异常信号”<a href="#前言进程状态里的-异常信号" class="hash-link" aria-label="前言：进程状态里的 “异常信号”的直接链接" title="前言：进程状态里的 “异常信号”的直接链接" translate="no">​</a></h3>
+<p>作为 Linux 开发，ps 和 top 是日常排查问题的 “老朋友”。通过它们，我们能快速看到进程的运行状态 —— 运行（R）、空闲（I）、可中断睡眠（S）、暂停（T）这些状态大多无需过度关注，但<strong>不可中断睡眠（D）</strong> 和 <strong>僵尸（Z）</strong> 两种状态，往往是系统隐患的 “信号灯”。</p>
+<p>今天我们就从基础认知出发，结合实际排查场景，聊聊如何用 ps/top 初步定位，再用 dstat/pidstat/perf/pstree 等工具深挖根源，最终解决这两类进程引发的系统问题。</p>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="一先厘清d-状态和-z-状态到底是什么">一、先厘清：D 状态和 Z 状态到底是什么？<a href="#一先厘清d-状态和-z-状态到底是什么" class="hash-link" aria-label="一、先厘清：D 状态和 Z 状态到底是什么？的直接链接" title="一、先厘清：D 状态和 Z 状态到底是什  么？的直接链接" translate="no">​</a></h3>
+<p>在动手排查前，必须先明确两个状态的核心定义，避免踩坑：</p>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-不可中断睡眠d-状态正在跟硬件打交道别打扰我">1. 不可中断睡眠（D 状态）：“正在跟硬件打交道，别打扰我”<a href="#1-不可中断睡眠d-状态正在跟硬件打交道别打扰我" class="hash-link" aria-label="1. 不可中断睡眠（D 状态）：“正在跟硬件打交道，别打扰我”的直接链接" title="1. 不可中断睡眠（D 状态）：“正在跟硬件打交道，别打扰我”的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>本质</strong>：进程正在执行与硬件相关的操作（如磁盘读写、网络 I/O、设备驱动交互），为了保证数据一致性（比如避免磁盘写一半被中断导致文件损坏），系统会禁止任何进程或中断打断它。</p>
+</li>
+<li class="">
+<p><strong>关键特征</strong>：ps/top 中状态显示为 D，<strong>无法用</strong> <strong>kill -9</strong> <strong>强制终止</strong>（强行 kill 只会白费功夫）。</p>
+</li>
+<li class="">
+<p><strong>正常 vs 异常</strong>：短暂的 D 状态是正常的（比如拷贝大文件时，进程会短暂处于 D 状态等待磁盘 I/O）；但<strong>大量 D 进程持续存在（超过几分钟）</strong>，通常意味着系统存在 I/O 性能问题（如磁盘瓶颈、挂载点卡死）。</p>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-僵尸状态z-状态进程已死资源未回收">2. 僵尸状态（Z 状态）：“进程已死，资源未回收”<a href="#2-僵尸状态z-状态进程已死资源未回收" class="hash-link" aria-label="2. 僵尸状态（Z 状态）：“进程已死，资源未回收”的直接链接" title="2. 僵尸状态（Z 状态）：“进程已死，资源未回收”的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>本质</strong>：进程已经执行完退出（exit），但它的父进程没有调用 wait() 或 waitpid() 函数，回收它占用的 PID、进程表项等资源，导致它成为 “僵尸”。</p>
+</li>
+<li class="">
+<p><strong>关键特征</strong>：ps/top 中状态显示为 Z，不占用 CPU 和内存，但会占用有限的 PID 资源。</p>
+</li>
+<li class="">
+<p><strong>正常 vs 异常</strong>：短暂的 Z 状态无需理会（父进程可能延迟回收）；但<strong>大量 Z 进程堆积</strong>，会导致系统无法创建新进程（PID 耗尽），此时必须排查父进程问题。</p>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="补充关于-iowait-高的-误区">补充：关于 iowait 高的 “误区”<a href="#补充关于-iowait-高的-误区" class="hash-link" aria-label="补充：关于 iowait 高的 “误区”的直接链接" title="补充：关于 iowait 高的 “误区”的直接链接" translate="no">​</a></h4>
+<p>很多人会把 top 中看到的高 iowait（I/O 等待时间占比）直接等同于 “磁盘 I/O 瓶颈”，但这是不准确的：</p>
+<ul>
+<li class="">
+<p>当系统中只有 I/O 类型的进程在运行时（比如没有其他 CPU 密集型进程），iowait 数值会被 “放大”，但实际磁盘读写可能远未达到性能上限。</p>
+</li>
+<li class="">
+<p>正确逻辑：<strong>iowait 升高 → 先用工具验证是否真的是 I/O 问题 → 再定位对应进程</strong>，而不是直接判定磁盘故障。</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="二排查流程从-初步定位-到-根源深挖">二、排查流程：从 “初步定位” 到 “根源深挖”<a href="#二排查流程从-初步定位-到-根源深挖" class="hash-link" aria-label="二、排查流程：从 “初步定位” 到 “根源深挖”的直接链接" title="二、排查流程：从 “初步定位” 到 “根源深挖”的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="第一步 用-pstop-快速识别异常进程">第一步：用 ps/top 快速识别异常进程<a href="#第一步用-pstop-快速识别异常进程" class="hash-link" aria-label="第一步：用 ps/top 快速识别异常进程的直接链接" title="第一步：用 ps/top 快速识别异常进程的直接链接" translate="no">​</a></h4>
+<p>这是排查的起点，先确认系统中是否存在大量 D/Z 状态进程：</p>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 用 ps 列出所有 D/Z 状态进程（含 PID、PPID、命令）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">ps aux | awk &#x27;$8 ~ /D|Z/ \{print &quot;PID:&quot;$2, &quot;PPID:&quot;$3, &quot;状态:&quot;$8, &quot;命令:&quot;$11\}&#x27;</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 用 top 实时观察（按「状态」排序，重点看 D/Z 列）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">top -o S  # 按状态字段排序，D/Z 进程会集中显示</span><br></span></code></pre></div></div>
+<p>通过这两个命令，你能快速得到：</p>
+<ul>
+<li class="">
+<p>异常进程的 PID 和父进程 PPID；</p>
+</li>
+<li class="">
+<p>对应的执行命令（比如是数据库进程、NFS 挂载进程还是自定义应用）；</p>
+</li>
+<li class="">
+<p>异常进程的数量（判断是个别问题还是批量异常）。</p>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="第二步处理-d-状态进程先验证-io再  找根源">第二步：处理 D 状态进程：先验证 I/O，再找根源<a href="#第二步处理-d-状态进程先验证-io再找根源" class="hash-link" aria-label="第二步：处理 D 状态进程：先验证 I/O，再找根源的直接链接" title="第二步：处理 D 状态进程：先验证 I/O，再找根源的直接链接" translate="no">​</a></h4>
+<p>大量 D 进程的核心怀疑对象是 “I/O 阻塞”，但需先通过工具验证，再针对性排查：</p>
+<h5 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-验证是否真的是-io-问题破除-iowait-误区">1. 验证是否真的是 I/O 问题（破除 iowait 误区）<a href="#1-验证是否真的是-io-问题破除-iowait-误区" class="hash-link" aria-label="1. 验证是否真的是 I/O 问题（破除 iowait 误区）的直接链接" title="1. 验证是否真的是 I/O 问题（破除 iowait 误区）的直接链接" translate="no">​</a></h5>
+<p>用 dstat 和 pidstat 工具确认 I/O 负载（若未安装，需先执行 yum install dstat sysstat）：</p>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. dstat 实时查看磁盘 I/O 状态（重点看 read/write 速度和 %util 利用率）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">dstat -d -D sda,sdb  # 只显示 sda、sdb 磁盘的读写状态</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 输出示例：read 100M/s, write 50M/s, %util 95% → 接近饱和，确认为 I/O 瓶颈</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. pidstat 定位哪个进程导致 I/O 压力</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">pidstat -d 1  # 每秒输出一次进程 I/O 统计</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 重点看 %dio（磁盘 I/O 占比），数值高的进程即为元凶</span><br></span></code></pre></div></div>
+<p>若 dstat 显示磁盘 %util 远低于 100%，但 iowait 仍很高 → 说明是 “伪 I/O 瓶颈”（系统无其他进程运行），无需优化磁盘，只需关注 D 进程本身的 I/O 等待原因（如网络 I/O 阻塞）。</p>
+<h5 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-深挖-d-进程的阻塞原因">2. 深挖 D 进程的阻塞原因<a href="#2-深挖-d-进程的阻塞原因" class="hash-link" aria-label="2. 深挖 D 进程的阻塞原因的直接链接" title="2. 深挖 D 进程的阻塞原因的直接链接" translate="no">​</a></h5>
+<p>根据第一步的验证结果，分场景排查：</p>
+<ul>
+<li class="">
+<p><strong>场景 1：磁盘 I/O 阻塞（% util 接近 100%）</strong></p>
+</li>
+<li class="">
+<p>检查磁盘健康状态：smartctl -a /dev/sda（查看磁盘坏道、寿命）；</p>
+</li>
+<li class="">
+<p>检查挂载点是否卡死：df -h（若命令卡住，大概率是 NFS/GlusterFS 等网络挂载失效）；</p>
+</li>
+<li class="">
+<p>解决：强制卸载失效挂载点 umount -lf /mnt/nfs，更换挂载源；或更换故障磁盘。</p>
+</li>
+<li class="">
+<p><strong>场景 2：网络 I/O 阻塞（磁盘 % util 正常）</strong></p>
+</li>
+<li class="">
+<p>查看 D 进程的网络连接：netstat -anp | grep 进程PID；</p>
+</li>
+<li class="">
+<p>若连接状态为 SYN_SENT/ESTABLISHED 但长期无数据传输 → 说明进程在等待远程服务响应（如数据库、API）；</p>
+</li>
+<li class="">
+<p>解决：检查远程服务可用性（ping/telnet），或在应用中添加网络超时配置（避免无限  等待）。</p>
+</li>
+<li class="">
+<p><strong>场景 3：直接 I/O 导致的特殊情况</strong></p>
+</li>
+</ul>
+<p>若上述排查均无结果，且 D 进程后续变成 Z 进程（无法用 strace 跟踪系统调用），需用 perf 工具分析 CPU 时钟事件，定位内核 / 应用层面的问题：</p>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 安装 perf：yum install perf</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 跟踪系统级 CPU 事件（持续 30 秒）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf record -g -a sleep 30</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 3. 查看分析结果（按热点排序）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf report</span><br></span></code></pre></div></div>
+<p>实战中，我们曾通过 perf 发现：某应用使用直接 I/O（O_DIRECT 标志）读写文件时，未正确处理 I/O 完成事件，导致进程长期处于 D 状态，后续退出后变成 Z 进程。通过修复源码中直接 I/O 的处理逻辑，问题彻底解决。</p>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="第三步处理-z-状态进程找到父进程就是找到根源">第三步：处理 Z 状态进程：找到父进程，就是找到根源<a href="#第三步处理-z-状态进程找到父进程就是找到根源" class="hash-link" aria-label="第三步：处理 Z 状态进程：找到父进程，就是找到根源的直接链接" title="第三步：处理 Z 状态进程：找到父进程，就是找到根源 的直接链接" translate="no">​</a></h4>
+<p>僵尸进程的排查相对直接，核心是 “定位父进程”—— 因为僵尸进程的资源回收责任在父进程：</p>
+<h5 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-用-pstree-找到僵尸进程的父进程">1. 用 pstree 找到僵尸进程的父进程<a href="#1-用-pstree-找到僵尸进程的父进程" class="hash-link" aria-label="1. 用 pstree 找到僵尸进程的父进程的直接链接" title="1. 用 pstree 找到僵尸进程的父进程的直接链接" translate="no">​</a></h5>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 先获取僵尸进程的 PID（从第一步 ps 命令结果中提取）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 用 pstree 查看父进程链（-p 显示 PID）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">pstree -p | grep 僵尸进程PID</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 示例输出：systemd(1)───nginx(1234)───nginx(5678)───nginx(7890)Z</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 其中 1234 是 7890（僵尸进程）的父进程 PPID</span><br></span></code></pre></div></div>
+<h5 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-排查父进程的问题">2. 排查父进程的问题<a href="#2-排查父进程的问题" class="hash-link" aria-label="2. 排查父进程的问题的直接链接" title="2. 排查父进程的问题的直接链接" translate="no">​</a></h5>
+<p>僵尸进程的本质是父进程未处理子进程退出， 常见原因有两种：</p>
+<ul>
+<li class="">
+<p>父进程程序 bug：未注册 SIGCHLD 信号处理函数，或未调用 wait()/waitpid() 回收子进程；</p>
+</li>
+<li class="">
+<p>父进程异常退出：父进程崩溃后，子进程被 init 进程（PID=1）接管，但 init 仅定期回收，若批量产生则会堆积。</p>
+</li>
+</ul>
+<h5 class="anchor anchorTargetStickyNavbar_ZQ94" id="3-解决方法">3. 解决方法<a href="#3-解决方法" class="hash-link" aria-label="3. 解决方法的直接链接" title="3. 解决方法的直接链接" translate="no">​</a></h5>
+<ul>
+<li class="">
+<p><strong>应急处理</strong>：若父进程正常运行 → 重启父进程（systemctl restart 父进程服务名），重启后父进程会自动回收僵尸进程；若父进程已退出（PPID=1）→ 执行 systemctl daemon-reload 或重启系统。</p>
+</li>
+<li class="">
+<p><strong>彻底根治</strong>：检查父进程代码：</p>
+</li>
+<li class="">
+<p>若为 C/C++ 程序：添加 SIGCHLD 信号处理函数，调用 waitpid(-1, NULL, WNOHANG) 非阻塞回收所有子进程；</p>
+</li>
+<li class="">
+<p>若为 Python/Java 程序：确保子进程退出后有对应的回收逻辑（如 Python 的 subprocess.Popen 调用 communicate()）。</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="三实战总结关键步骤与避坑指南">三、实战总结：关键步骤与避坑指南<a href="#三实战总结关键步骤与避坑指南" class="hash-link" aria-label="三、实战总结：关键步骤与避坑指南的直接链接" title="三、实战总结：关键步骤与避坑指南的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-排查关键步骤">1. 排查关键步骤<a href="#1-排查关键步骤" class="hash-link" aria-label="1. 排查关键步骤的直接链接" title="1. 排查关键步骤的直接链接" translate="no">​</a></h4>
+<!-- -->
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-避坑指南">2. 避坑指南<a href="#2-避坑指南" class="hash-link" aria-label="2. 避坑指南的直接链接" title="2. 避坑指南的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p>❌ 不要直接 kill -9 D 状态进程：无效！必须先解决 I/O 阻塞问题，进程才会自动退出；</p>
+</li>
+<li class="">
+<p>❌ 不要被高 iowait 误导：先用量化工具（dstat/pidstat）验证，再下结论；</p>
+</li>
+<li class="">
+<p>❌ 不要只删除僵尸进程：不修复父进程，会持续产生新的僵尸进程；</p>
+</li>
+<li class="">
+<p>❌ 不要忽略 D 转 Z 的情况：无法用 strace 跟踪时，记得用 perf 工具分析内核 / 应用热点。</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="四预防措施提前规避问题">四、预防措施：提前规避问题<a href="#四预防措施提前规避问题" class="hash-link" aria-label="四、预防措施：提前规避问题的直接链接" title="四、预防措施：提前规避问题的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>监控告警</strong>：用 Prometheus+Grafana 监控 node_processes_state{state=~&quot;D|Z&quot;}，当数量超过阈值（如 5 个）时触发告警；</p>
+</li>
+<li class="">
+<p><strong>应用优化</strong>：所有后台服务必须实现子进程回收逻辑，配置合理的 I/O/ 网络超时；</p>
+</li>
+<li class="">
+<p><strong>系统配置</strong>：定期检查磁盘健康（smartctl）、清理无效挂载点，开启内核参数 echo 30 &gt; /proc/sys/kernel/hung_task_timeout_secs（30 秒超时清理 D 进程）。</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="五典型实战案例还原真实排查场景">五、典型实战案例：还原真实排查场景<a href="#五典型实战案例还原真实排查场景" class="hash-link" aria-label="五、典型实战案例：还原真实排查场景的直接链接" title="五、典型实战案例：还原真实排查场景的直接链接" translate="no">​</a></h3>
+<p>理论结合实 践才能真正掌握排查思路，以下两个案例均来自生产环境，覆盖 D 转 Z 特殊场景和大规模僵尸进程问题：</p>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="案例-1直接-io-导致的-d-转-z-进程堆积">案例 1：直接 I/O 导致的 D 转 Z 进程堆积<a href="#案例-1直接-io-导致的-d-转-z-进程堆积" class="hash-link" aria-label="案例 1：直接 I/O 导致的 D 转 Z 进程堆积的直接链接" title="案例 1：直接 I/O 导致的 D 转 Z 进程堆积的直接链接" translate="no">​</a></h4>
+<p><strong>现象</strong>：某电商平台后台服务器（CentOS 7）负载飙升至 20+，ps 查看发现 10+ 进程处于 D 状态，半小时后部分转为 Z 状态，应用日志无报错。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li class="">
+<p>初步定位：ps aux | awk &#x27;$8 ~ /D|Z/&#x27; 发现异常进程均为自定义数据同步服务（data-sync），PPID 均为 1234（服务主进程）。</p>
+</li>
+<li class="">
+<p>验证 I/O：dstat -d 显示磁盘 % util 仅 15%，pidstat -d 1 显示 data-sync 进程的 % dio 为 0 → 排除磁盘 I/O 瓶颈。</p>
+</li>
+<li class="">
+<p>网络排查：netstat -anp | grep 1234 无异常网络连接，ping 数据库 / 缓存服务均正常 → 排除网络阻塞。</p>
+</li>
+<li class="">
+<p>深度分析：使用 perf 跟踪系统事件：</p>
+</li>
+</ol>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf record -g -p 1234 sleep 60  # 仅跟踪服务主进程</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf report  # 查看热点函数</span><br></span></code></pre></div></div>
+<p>发现 data-sync 进程频繁调用 pread64() 函数（直接 I/O 读写），且内核态函数 __direct_io_complete() 存在阻塞。</p>
+<ol>
+<li class="">源码排查：查看 data-sync 源码，发现使用 O_DIRECT 标志打开文件后，未通过 aio_wait() 等待 I/O 完成，直接退出子进程，导致子进程长期处于 D 状态，最终转为 Z 状态。</li>
+</ol>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li class="">
+<p>修复源码：在直接 I/O 操作后添加 aio_wait() 等待逻辑，确保 I/O 完成后再退出子进程；</p>
+</li>
+<li class="">
+<p>补充子进程回收：在主进程中注册 SIGCHLD 信号处理函数，调用 waitpid() 回收异常退出的子进程；</p>
+</li>
+<li class="">
+<p>重启服务：systemctl restart data-sync，僵尸进程被自动回收，D 进程不再产生。</p>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="案例-2python-服务未回收子进程导致大规模-z-进程">案例 2：Python 服务未回收子进程导致大规模 Z 进程<a href="#案例-2python-服务未回收子进程导致大规模-z-进程" class="hash-link" aria-label="案例 2：Python 服务未回收子进程导致大规模 Z 进程的直接链接" title="案例 2：Python 服务未回收子进程导致大规模 Z 进程的直接链接" translate="no">​</a></h4>
+<p><strong>现象</strong>：某监控平台（Python 编写）运行 3 天后，服务器出现 “无法创建新进程” 报错，ps aux | grep Z 显示 200+ 僵尸进程，PPID 均为 5678（监控服务主进程）。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li class="">
+<p>定位父进程：pstree -p 5678 发现主进程通过 subprocess.Popen 启动大量子进程（执行脚本采集数据），但未调用 communicate() 或 wait() 回收。</p>
+</li>
+<li class="">
+<p>代码分析：查看监控服务源码，发现以下问题代码：</p>
+</li>
+</ol>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 错误示例：启动子进程后未回收</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">for task in task_list:</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    subprocess.Popen([&quot;python&quot;, &quot;collector.py&quot;, task])</span><br></span></code></pre></div></div>
+<p>子进程执行完毕后退出，但父进程未处理，导致僵尸进程堆积。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li class="">
+<p>紧急处理：systemctl restart monitor-service，200+ 僵尸进程瞬间被回收；</p>
+</li>
+<li class="">
+<p>代码修复：两种方案任选：</p>
+</li>
+</ul>
+<ol>
+<li class="">调用 communicate() 阻塞回收：</li>
+</ol>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain">for task in task_list:</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    p = subprocess.Popen([&quot;python&quot;, &quot;collector.py&quot;, task])</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    p.communicate()  # 等待子进程退出并回收</span><br></span></code></pre></div></div>
+<ol>
+<li class="">使用 subprocess.check_output() 简化逻辑（自动回收）：</li>
+</ol>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain">for task in task_list:</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    subprocess.check_output([&quot;python&quot;, &quot;collector.py&quot;, task])</span><br></span></code></pre></div></div>
+<ul>
+<li class="">长期优化：引入进程池（multiprocessing.Pool）限制并发数，避免子进程泛滥。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="六工具进阶用法让排查更高效">六、工具进阶用法：让排查更高效<a href="#六工具进阶用法让排查更高效" class="hash-link" aria-label="六、工具进阶用法：让排查更高效的直接链接" title="六、工具进阶用法：让排查更高效的直接链接" translate="no">​</a></h3>
+<p>前面提到的工具（ps/top/perf 等）还有更多实用参数，掌握这些能大幅提升排查效率：</p>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-ps-进阶精准过滤异常进程">1. ps 进阶：精准过滤异常进程<a href="#1-ps-进阶精准过滤异常进程" class="hash-link" aria-label="1. ps 进阶：精准过滤异常进程的直接链接" title="1. ps 进阶：精准过滤异常进程的直接链接" translate="no">​</a></h4>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 显示 D/Z 进程的完整命令行（避免命令被截断）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">ps auxww | awk &#x27;$8 ~ /D|Z/ \{print $2, $8, $0\}&#x27;</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 统计每个父进程下的僵尸进程数量</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">ps -ef | grep -v grep | awk &#x27;$8 == &quot;Z&quot; \{print $3\}&#x27; | sort | uniq -c | sort -nr</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 3. 查看 D 进程的等待资源（需安装 pstack）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">pstack 进程PID  # 若输出无响应，说明进程确实在等待硬件资源</span><br></span></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-top-进阶聚焦关键指标">2. top 进阶：聚焦关键指标<a href="#2-top-进阶聚焦关键指标" class="hash-link" aria-label="2. top 进阶：聚焦关键指标的直接链接" title="2. top 进阶：聚焦关键指标的直接链接" translate="no">​</a></h4>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 只显示 D/Z 状态进程（实时刷新）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">top -p $(ps aux | awk &#x27;$8 ~ /D|Z/ \{print $2\}&#x27; | tr &#x27;\n&#x27; &#x27;,&#x27;)</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 显示进程的 I/O 统计（需开启）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">top -o %IO  # 按 I/O 占比排序，快速找到 I/O 密集型进程</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 注：部分系统需先执行 `echo 1 &gt; /proc/sys/kernel/threads-max` 开启</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 3. 查看每个 CPU 的 iowait 分布</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">top -1  # 按 1 切换到单个 CPU 视图，判断是否某颗 CPU 被 I/O 阻塞</span><br></span></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="3-perf-进阶精准定位问题函数">3. perf 进阶：精准定位问题函数<a href="#3-perf-进阶精准定位问题函数" class="hash-link" aria-label="3. perf 进阶：精准定位问题函数的直接链接" title="3. perf 进阶：精准定位问题函数的直接链接" translate="no">​</a></h4>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 只跟踪 I/O 相关的系统调用</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf record -e syscalls:sys_enter_pread64 -e syscalls:sys_enter_pwrite64 -p 进程PID</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 生成火焰图（更直观展示调用链）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 安装火焰图工具：git clone https://github.com/brendangregg/FlameGraph.git</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf record -g -p 进程PID sleep 30</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">perf script &gt; perf.data</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">./FlameGraph/stackcollapse-perf.pl perf.data &gt; perf.folded</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">./FlameGraph/flamegraph.pl perf.folded &gt; perf.svg</span><br></span></code></pre></div></div>
+<p>打开 perf.svg 可直观看到进程调用链中阻塞的函数（火焰图中 “平顶” 部分即为热点）。</p>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="4-pstree-进阶快速定位父进程树">4. pstree 进阶：快速定位父进程树<a href="#4-pstree-进阶快速定位父进程树" class="hash-link" aria-label="4. pstree 进阶：快速定位父进程树的直接链接" title="4. pstree 进阶：快速定位父进程树的直接链接" translate="no">​</a></h4>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 1. 以树形结构显示僵尸进程的完整父进程链（含命令）</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">pstree -p -a | grep -B 3 -A 3 Z  # 显示僵尸进程上下 3 层的 进程链</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain"># 2. 查找所有僵尸进程的父进程，并显示父进程的启动命令</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">for zpid in $(ps aux | awk &#x27;$8 == &quot;Z&quot; \{print $2\}&#x27;); do</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    ppid=$(ps -ef | grep $zpid | awk &#x27;\{print $3\}&#x27;)</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    echo &quot;僵尸进程 $zpid 的父进程 $ppid：$(ps -ef | grep $ppid | awk &#x27;\{print $0\}&#x27;)&quot;</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">done</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="七常见场景扩展不同环境下的特殊处理">七、常见场景扩展：不同环境下的特殊处理<a href="#七常见场景扩展不同环境下的特殊处理" class="hash-link" aria-label="七、常见场景扩展：不同环境下的特殊处理的直接链接" title="七、常见场景扩展：不同环境下的特殊处理的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="1-kubernetes-环境中的-dz-进程">1. Kubernetes 环境中的 D/Z 进程<a href="#1-kubernetes-环境中的-dz-进程" class="hash-link" aria-label="1. Kubernetes 环境中的 D/Z 进程的直接链接" title="1. Kubernetes 环境中的 D/Z 进程的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>排查差异</strong>：需先进入容器（kubectl exec -it 容器名 -- /bin/bash）再执行 ps/top，或直接在节点上执行 ps aux | grep 容器ID（容器进程在节点上可见）。</p>
+</li>
+<li class="">
+<p><strong>特殊问题</strong>：</p>
+</li>
+<li class="">
+<p>D 进程：可能是容器挂载的 PVC（存储卷）故障，通过 kubectl describe pvc PVC名 查看存储状态；</p>
+</li>
+<li class="">
+<p>Z 进程：若容器重启后仍存在，可能是 Pod 配置的 restartPolicy: Always 导致父进程反复重启，未回收子进程。</p>
+</li>
+<li class="">
+<p><strong>解决方案</strong>：</p>
+</li>
+<li class="">
+<p>重建故障 PVC 或更换存储类；</p>
+</li>
+<li class="">
+<p>在容器启动脚本中添加子进程回收逻辑（如 trap &#x27;wait&#x27; SIGCHLD）。</p>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="2-虚拟机--云服务器中的-d-进程">2. 虚拟机 / 云服务器中的 D 进程<a href="#2-虚拟机--云服务器中的-d-进程" class="hash-link" aria-label="2. 虚拟机 / 云服务器中的 D 进程的直接链接" title="2. 虚拟机 / 云服务器中的 D 进程的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p>常见原因：云盘（如 AWS EBS、阿里云 ECS 云盘）性能瓶颈或挂载点异常。</p>
+</li>
+<li class="">
+<p>特殊排查：</p>
+</li>
+<li class="">
+<p>查看云盘监控：登录云平台控制台，查看云盘的 I/O 吞吐量、延迟是否超标；</p>
+</li>
+<li class="">
+<p>检查云盘挂载：mount | grep cloud 查看挂载参数，若使用 defaults,noatime 仍卡顿，可尝试调整 io_scheduler：</p>
+</li>
+</ul>
+<div class="language-text codeBlockContainer_Z2VO theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_CQaz"><pre tabindex="0" class="prism-code language-text codeBlock_Seqb thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_ARjV"><span class="token-line" style="color:#bfc7d5"><span class="token plain">echo mq-deadline &gt; /sys/block/vda/queue/scheduler  # 切换 I/O 调度器</span><br></span></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_ZQ94" id="3-嵌入式-linux-中的-z-进程">3. 嵌入式 Linux 中的 Z 进程<a href="#3-嵌入式-linux-中的-z-进程" class="hash-link" aria-label="3. 嵌入式 Linux 中的 Z 进程的直接链接" title="3. 嵌入式 Linux 中的 Z 进程的直接链接" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p>限制条件：嵌入式系统资源有限（PID 数量少，通常为 4096），僵尸进程堆积会更快导致系统崩溃。</p>
+</li>
+<li class="">
+<p>解决方案：</p>
+</li>
+<li class="">
+<p>开启内核自动回收：echo 1 &gt; /proc/sys/kernel/auto_reap_orphans（部分嵌入式内核支持）；</p>
+</li>
+<li class="">
+<p>简化应用设计：避免频繁创建子进程，或使用线程替代子进程（线程退出后资源自动回收）。</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_ZQ94" id="八总结排查思路的核心逻辑">八、总结：排查思路的核心逻辑<a href="#八总结排查思路的核心逻辑" class="hash-link" aria-label="八、总结：排查思路的核心逻辑的直接链接" title="八、总结：排查思路的核心逻辑的直接链接" translate="no">​</a></h3>
+<p>解决 Linux 系统的 D/Z 进程问题，核心是 “<strong>先定位现象→再验证原因→最后根治问题</strong>”，避免盲目操作：</p>
+<ol>
+<li class="">用 ps/top 快速锁定异常进程，获取 PID/PPID 和关联命令；</li>
+<li class="">对 D 进程：先通过 dstat/pidstat 验证 I/O 是否真瓶颈，再分磁盘 / 网络 / 直接 I/O 场景排查；</li>
+<li class="">对 Z 进程：核心是找到父进程，修复 wait()/SIGCHLD 处理逻辑，而非单纯删除僵尸进程；</li>
+<li class="">复杂场景：善用 perf 工具和火焰图，从内核 / 应用层面深挖根源；</li>
+<li class="">长期保障：通过监控告警和代码规范，提前规避问题复发。</li>
+</ol></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/技术博客/CPU/深入理解linux软中断"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">深入理解linux软中断</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/技术博客/CPU/调整CPU频率"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">调整CPU频率</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_ysE5 thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#前言进程状态里的-异常信号" class="table-of-contents__link toc-highlight">前言：进程状态里的 “异常信号”</a></li><li><a href="#一先厘清d-状态和-z-状态到底是什么" class="table-of-contents__link toc-highlight">一、先厘清：D 状态和 Z 状态到底是什么？</a></li><li><a href="#二排查流程从-初步定位-到-根源深挖" class="table-of-contents__link toc-highlight">二、排查流程：从 “初步定位” 到 “根源深挖”</a></li><li><a href="#三实战总结关键步骤与避坑指南" class="table-of-contents__link toc-highlight">三、实战总结：关键步骤与避坑指南</a></li><li><a href="#四预防措施提前规避问题" class="table-of-contents__link toc-highlight">四、预防措施：提前规避问题</a></li><li><a href="#五典型实战案例还原真实排查场景" class="table-of-contents__link toc-highlight">五、典型实战案例：还原真实排查场景</a></li><li><a href="#六工具进阶用法让排查更高效" class="table-of-contents__link toc-highlight">六、工具进阶用法：让排查更高效</a></li><li><a href="#七常见场景扩展不同环境下的特殊处理" class="table-of-contents__link toc-highlight">七、常见场景扩展：不同环境下的特殊处理</a></li><li><a href="#八总结排查思路的核心逻辑" class="table-of-contents__link toc-highlight">八、总结：排查思路的核心逻辑</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="#" class="footer__link-item">知识探索者</a></li><li class="footer__item"><a href="#" class="footer__link-item">热爱技术，喜欢分享。在这里记录学习笔记、技术心得和生活感悟，与大家共同成长。</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">联系方式</div><ul class="footer__items clean-list"><li class="footer__item"><a href="mailto:shao60579056@163.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">邮箱<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_PHbF"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/changyuansmallfarmer" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_PHbF"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="#" class="footer__link-item">公众号：蒲城小农</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item"><a href="#" class="footer__link-item">Bilibili</a></li><li class="footer__item"><a href="#" class="footer__link-item">知乎</a></li><li class="footer__item"><a href="#" class="footer__link-item">友链</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 蒲城小农的文字世界. Built with ❤️ using Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
